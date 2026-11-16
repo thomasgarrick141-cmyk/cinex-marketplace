@@ -525,7 +525,7 @@ const V = {
   about: () => `
     <div class="pg about">
       <div class="av ${isAdminUser() ? 'admin-editable' : ''}" ${isAdminUser() ? 'onclick="Cinex.open(\'adminPhotoM\')" title="Click to update CEO photo"' : ''}>
-        ${store.get("cinex_ceo_photo") ? `<img src="${store.get("cinex_ceo_photo")}" alt="Thomas Garrick">` : 'TG'}
+        <img src="${store.get("cinex_ceo_photo") || 'PP1-150x150.jpeg'}" alt="Thomas Garrick Founder & CEO" onerror="this.src='https://i.ibb.co/hR4y51Y/company-logo.jpg'">
       </div>
       <div>
         <h1>Thomas Garrick</h1><p style="font-size:var(--fs-body);font-weight:600;color:var(--ac);margin:0 0 14px">Founder &amp; CEO, CINEX.CO</p>
