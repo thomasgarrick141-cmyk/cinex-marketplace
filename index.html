@@ -3,251 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-<meta name="robots" content="index, follow, max-image-preview:large">
 <title id="siteTitle">CINEX.CO | Open Technology Marketplace Freetown</title>
-<meta name="description" id="metaDesc" content="CINEX.CO - Sierra Leone's premier open technology marketplace. Buy & sell phones, gadgets, fashion, hardware, and local tech services in Freetown.">
-<meta name="keywords" content="CINEX.CO, Sierra Leone, Freetown, Buy Sell Phones, Orange Money, Afrimoney, QMoney, FRP Unlock, IT Services">
-<link rel="canonical" id="canonicalTag" href="https://cinex.co/">
-<meta name="google-site-verification" content="CINEX-SL-GSC-VERIFICATION-TOKEN">
-<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
-<meta property="og:title" id="ogTitle" content="CINEX.CO - Cybernetics & Technology Solutions">
-<meta property="og:description" id="ogDesc" content="Innovate • Create • Excel - Open Tech Marketplace in Freetown, Sierra Leone.">
-<meta property="og:image" content="https://i.ibb.co/hR4y51Y/company-logo.jpg">
-<meta property="og:image:alt" content="CINEX.CO Official Logo - Innovate, Create, Excel">
-<meta property="og:url" id="ogUrl" content="https://cinex.co/">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.ibb.co/hR4y51Y/company-logo.jpg">
-
-<script>
-  if (location.protocol === 'http:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && !location.hostname.endsWith('.local')) {
-    location.replace('https:' + location.href.substring(location.protocol.length));
-  }
-</script>
-
-<!-- Supabase JS Client SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "OnlineBusiness",
-      "@id": "https://cinex.co/#organization",
-      "name": "CINEX.CO Cybernetics & Technology Solutions",
-      "url": "https://cinex.co/",
-      "logo": "https://i.ibb.co/hR4y51Y/company-logo.jpg",
-      "image": "https://i.ibb.co/hR4y51Y/company-logo.jpg",
-      "telephone": "+23231921336",
-      "email": "Thomasgarrick141@gmail.com",
-      "founder": {
-        "@type": "Person",
-        "name": "Thomas Garrick"
-      },
-      "areaServed": {
-        "@type": "Country",
-        "name": "Sierra Leone"
-      },
-      "priceRange": "NLe"
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://cinex.co/#website",
-      "url": "https://cinex.co/",
-      "name": "CINEX.CO",
-      "publisher": {
-        "@id": "https://cinex.co/#organization"
-      }
-    }
-  ]
-}
-</script>
-
+<meta name="description" content="CINEX.CO - Sierra Leone's premier open technology marketplace. Buy & sell phones, gadgets, fashion, and tech services.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Schibsted+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#F8FAFC;--sf:#FFFFFF;--ln:#E2E8F0;--ink:#0F172A;--mu:#64748B;--ac:#0284C7;--ach:#0369A1;--aci:#FFFFFF;--grn:#10B981;--red:#EF4444;--amb:#F59E0B;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#F8FAFC;--sf:#FFFFFF;--ln:#E2E8F0;--ink:#0F172A;--mu:#64748B;--ac:#0284C7;--ach:#0369A1;--aci:#FFFFFF;--grn:#10B981;--red:#EF4444;color-scheme:light}
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px);overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Figtree,system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh}
 [hidden]{display:none!important}
-h1,h2,h3,.brand{font-family:"Schibsted Grotesk",Figtree,system-ui,sans-serif;letter-spacing:-.02em;line-height:1.15;margin:0}
-h1{font-size:clamp(28px,4.5vw,48px);font-weight:800;color:var(--ink)}
-h2{font-size:22px;font-weight:700}
-h3{font-size:16px;font-weight:700}
-p{margin:0}
+h1,h2,h3,.brand{font-family:"Schibsted Grotesk",Figtree,system-ui,sans-serif;letter-spacing:-.02em}
+h1{font-size:clamp(28px,4.5vw,44px);font-weight:800;color:var(--ink);margin:0 0 12px;line-height:1.2}
+h2{font-size:22px;font-weight:700;margin:0 0 14px;line-height:1.3}
+p{margin:0 0 12px}
 .mu{color:var(--mu)}
 .wrap{max-width:1160px;margin:0 auto;padding:0 20px;width:100%}
-.ic{flex:none}
-
-#authGate{position:fixed;inset:0;background:rgba(15,23,42,0.8);backdrop-filter:blur(6px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
-.auth-box{background:var(--sf);border:1px solid var(--ln);border-radius:18px;width:min(440px,100%);padding:28px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);margin:auto}
-.auth-header{text-align:center;margin-bottom:20px}
-.auth-logo{max-height:56px;width:auto;margin:0 auto 12px;display:block;object-fit:contain;border-radius:8px;background:#ffffff;padding:4px}
-.auth-title{font-family:"Schibsted Grotesk",sans-serif;font-size:22px;font-weight:700;margin:0}
+#authGate{position:fixed;inset:0;background:rgba(15,23,42,0.8);backdrop-filter:blur(6px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-box{background:var(--sf);border:1px solid var(--ln);border-radius:18px;width:min(440px,100%);padding:28px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
+.auth-logo{max-height:50px;margin:0 auto 12px;display:block;border-radius:8px;background:#fff;padding:4px}
 .auth-tabs{display:flex;border-bottom:1px solid var(--ln);margin-bottom:18px}
 .auth-tabs button{flex:1;background:none;border:0;border-bottom:2px solid transparent;padding:10px;font:600 15px Figtree,sans-serif;color:var(--mu);cursor:pointer}
 .auth-tabs button.active{color:var(--ink);border-bottom-color:var(--ac)}
-
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--sf);border-bottom:1px solid var(--ln);box-shadow:0 1px 3px rgba(0,0,0,0.02)}
-.bar{display:flex;align-items:center;gap:12px;min-height:68px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
-.brand{font-weight:800;font-size:20px;background:none;border:0;color:var(--ink);padding:0;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;text-decoration:none}
-.brand img{height:40px;width:auto;object-fit:contain;border-radius:8px;background:#ffffff;padding:2px}
-.brand small{display:block;font:400 11px Figtree,sans-serif;letter-spacing:0.04em;color:var(--ac);margin-top:1px;font-weight:700;text-transform:uppercase}
-nav{flex:1;display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-nav::-webkit-scrollbar{display:none}
-nav a,nav button{background:none;border:0;border-bottom:2px solid transparent;color:var(--mu);font:500 14px Figtree,sans-serif;padding:8px 10px;cursor:pointer;white-space:nowrap;border-radius:6px;text-decoration:none;display:inline-flex;align-items:center}
+header{position:sticky;top:0;z-index:30;background:var(--sf);border-bottom:1px solid var(--ln)}
+.bar{display:flex;align-items:center;gap:12px;min-height:68px;flex-wrap:wrap;padding:10px 0}
+.brand{font-weight:800;font-size:20px;color:var(--ink);display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{height:38px;border-radius:8px;background:#fff;padding:2px}
+.brand small{display:block;font:700 11px Figtree,sans-serif;color:var(--ac);text-transform:uppercase;margin-top:2px}
+nav{flex:1;display:flex;gap:6px;overflow-x:auto;align-items:center}
+nav a,nav button{background:none;border:0;color:var(--mu);font:500 14px Figtree,sans-serif;padding:8px 12px;cursor:pointer;white-space:nowrap;border-radius:6px;text-decoration:none}
 nav a:hover,nav button:hover{color:var(--ink);background:rgba(0,0,0,0.02)}
-nav a[aria-current=page]{color:var(--ac);border-bottom-color:var(--ac);font-weight:600}
-.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.user-badge{font-size:13px;font-weight:600;color:var(--mu);padding:6px 12px;background:var(--bg);border-radius:20px;border:1px solid var(--ln)}
-.curr-btn{font-size:12px;font-weight:700;background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--ink)}
-
-.btn{font:600 14px/1.2 Figtree,sans-serif;padding:10px 14px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;transition:all 0.15s ease}
-.btn:hover:not(:disabled){border-color:var(--mu);transform:translateY(-1px)}
-.btn:disabled{opacity:0.5;cursor:not-allowed}
-.pri{background:var(--ac);border-color:var(--ac);color:var(--aci);box-shadow:0 2px 6px rgba(2,132,199,0.2)}
-.pri:hover:not(:disabled){background:var(--ach);border-color:var(--ach)}
+.tools{display:flex;gap:10px;align-items:center}
+.btn{font:600 14px Figtree,sans-serif;padding:10px 16px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn:hover{border-color:var(--mu)}
+.pri{background:var(--ac);border-color:var(--ac);color:var(--aci)}
+.pri:hover{background:var(--ach)}
 .btn-wa{background:#25D366;color:#fff;border-color:#25D366}
-.btn-danger{background:#FEF2F2;color:#DC2626;border-color:#FECACA}
 .full{width:100%}
 .cn{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--ac);color:var(--aci);font-size:12px;display:inline-grid;place-items:center}
-.lnk{background:none;border:0;padding:0;font:inherit;font-size:14px;color:var(--mu);text-decoration:underline;cursor:pointer}
-
-.filter-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px;background:var(--sf);padding:14px;border:1px solid var(--ln);border-radius:14px}
-.search-in{flex:1;min-width:200px}
-.breadcrumbs{padding:14px 0 0;font-size:13px;color:var(--mu);display:flex;align-items:center;gap:6px}
-.breadcrumbs a{color:var(--mu);text-decoration:none}
-main{flex:1;padding-bottom:56px}
-
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:36px 0 28px}
-.lede{color:var(--mu);font-size:17px;max-width:54ch;margin:14px 0 24px;line-height:1.6}
-.promise-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(2,132,199,0.08);color:var(--ac);border:1px solid rgba(2,132,199,0.2);border-radius:20px;font-size:13px;font-weight:600;margin-bottom:12px}
-
-.escrow-banner{background:rgba(16,185,129,0.1);border:1px solid var(--grn);color:var(--grn);padding:12px 16px;border-radius:12px;margin-bottom:24px;font-size:14px;display:flex;align-items:center;gap:10px;font-weight:600}
-
-.facts{background:var(--sf);border:1px solid var(--ln);border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.03)}
-.facts>div{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;border-top:1px solid var(--ln)}
+.lnk{background:none;border:0;padding:0;font:inherit;color:var(--mu);text-decoration:underline;cursor:pointer}
+main{flex:1;padding:32px 0 64px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;padding:32px 0}
+.promise-tag{display:inline-flex;padding:6px 14px;background:rgba(2,132,199,0.08);color:var(--ac);border:1px solid rgba(2,132,199,0.2);border-radius:20px;font-size:13px;font-weight:600;margin-bottom:16px}
+.escrow-banner{background:rgba(16,185,129,0.1);border:1px solid var(--grn);color:var(--grn);padding:14px 18px;border-radius:12px;margin-bottom:28px;font-size:14px;font-weight:600;line-height:1.5}
+.facts{background:var(--sf);border:1px solid var(--ln);border-radius:16px;overflow:hidden}
+.facts>div{display:flex;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--ln)}
 .facts>div:first-child{border-top:0}
 .facts dt{color:var(--mu)}
-.facts dd{margin:0;font-weight:600;text-align:right}
-
-.sec{padding:24px 0 8px}
-.sh{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chips button{font:500 13px Figtree,sans-serif;padding:7px 15px;border-radius:20px;border:1px solid var(--ln);background:var(--sf);color:var(--ink);cursor:pointer}
-.chips button[aria-pressed=true]{background:var(--ink);color:var(--sf);border-color:var(--ink);font-weight:600}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:20px}
-.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:relative}
-.ph{aspect-ratio:4/3;background:var(--bg);display:grid;place-items:center;color:var(--mu);font-weight:500;position:relative;overflow:hidden;border-bottom:1px solid var(--ln);cursor:pointer}
+.facts dd{margin:0;font-weight:600}
+.filter-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;background:var(--sf);padding:16px;border:1px solid var(--ln);border-radius:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:24px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.ph{aspect-ratio:4/3;background:var(--bg);display:grid;place-items:center;color:var(--mu);position:relative;overflow:hidden;border-bottom:1px solid var(--ln);cursor:pointer}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.sold-ribbon{position:absolute;top:12px;left:12px;background:#DC2626;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;z-index:2}
-.cond-badge{position:absolute;bottom:10px;left:10px;background:rgba(15,23,42,0.78);color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;z-index:2}
-
-.cb{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.cb h3{cursor:pointer}
-.meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px}
-.cat-tag{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--ac);background:rgba(2,132,199,0.08);padding:3px 8px;border-radius:6px}
-.loc-tag{font-size:11px;color:var(--mu);font-weight:500}
-.seller-row{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
-.seller-name{font-size:12px;color:var(--mu)}
-.v-badge{font-size:10px;background:rgba(16,185,129,0.15);color:var(--grn);padding:2px 6px;border-radius:4px;font-weight:700}
-.cb p{font-size:14px;color:var(--mu);flex:1;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.foot{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--ln)}
-.foot-btns{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.price{font:700 18px "Schibsted Grotesk",sans-serif;color:var(--ink)}
-
-.order-card{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:16px;margin-bottom:12px}
-.order-status{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;text-transform:uppercase}
-.status-awaiting{background:#FEF3C7;color:#D97706}
-.status-confirmed{background:#D1FAE5;color:#059669}
-
-.pg{padding-top:36px;max-width:780px}
-.pg h2{margin:24px 0 10px}
-.sub-role{font-size:16px;font-weight:600;color:var(--ac);margin:6px 0 14px}
-.about{display:grid;grid-template-columns:180px 1fr;gap:36px;max-width:900px}
-.av{width:180px;aspect-ratio:1;border-radius:16px;background:var(--ac);color:var(--aci);display:grid;place-items:center;font:800 48px "Schibsted Grotesk",sans-serif;overflow:hidden}
+.cb{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cb h3{cursor:pointer;font-size:16px;font-weight:700;margin:0}
+.cat-tag{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--ac);background:rgba(2,132,199,0.08);padding:4px 8px;border-radius:6px;display:inline-block}
+.price{font:700 18px "Schibsted Grotesk",sans-serif}
+.pg{padding-top:20px;max-width:800px}
+.about{display:grid;grid-template-columns:180px 1fr;gap:40px;align-items:start;max-width:920px}
+.av{width:180px;aspect-ratio:1;border-radius:16px;background:var(--ac);color:var(--aci);display:grid;place-items:center;font:800 48px "Schibsted Grotesk",sans-serif;overflow:hidden;position:relative}
+.av.admin-editable{cursor:pointer;border:3px dashed var(--grn)}
+.av.admin-editable::after{content:'Change Photo';position:absolute;bottom:0;inset-x:0;background:rgba(0,0,0,0.7);color:#fff;font-size:11px;font-weight:700;text-align:center;padding:4px}
 .av img{width:100%;height:100%;object-fit:cover}
-
 details{border-top:1px solid var(--ln)}
-details summary{cursor:pointer;font-weight:600;font-size:16px;padding:16px 0;list-style:none}
+details summary{cursor:pointer;font-weight:600;font-size:16px;padding:18px 0}
 details summary::after{content:"+";float:right;color:var(--mu)}
 details[open] summary::after{content:"\2013"}
-details p{color:var(--mu);padding:0 0 16px;font-size:14px}
-
-footer.site{border-top:1px solid var(--ln);background:var(--sf);padding:28px 0;font-size:14px;color:var(--mu);margin-top:40px}
-footer.site .wrap{display:flex;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;align-items:center}
-.footer-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-
+details p{color:var(--mu);padding:0 0 18px;font-size:15px;line-height:1.7;margin:0}
+footer.site{border-top:1px solid var(--ln);background:var(--sf);padding:32px 0;font-size:14px;color:var(--mu);margin-top:48px}
+footer.site .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
 .ov{position:fixed;inset:0;background:rgba(15,23,42,0.6);display:none;z-index:50;padding:16px;overflow:auto}
 .ov.on{display:flex}
-.dlg{background:var(--sf);border:1px solid var(--ln);border-radius:18px;width:min(460px,100%);padding:26px;margin:auto;box-shadow:0 20px 25px -5px rgba(0,0,0,0.1)}
-.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.x{background:none;border:0;color:var(--mu);cursor:pointer;padding:4px;display:grid}
+.dlg{background:var(--sf);border:1px solid var(--ln);border-radius:18px;width:min(480px,100%);padding:28px;margin:auto}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.x{background:none;border:0;color:var(--mu);cursor:pointer;padding:6px;font-size:18px}
 .dr{padding:0;justify-content:flex-end}
-.dr .dlg{margin:0;height:100%;border-radius:0;border-width:0 0 0 1px;width:min(440px,100%);display:flex;flex-direction:column}
-.grow{flex:1;overflow:auto}
-.ci{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-top:1px solid var(--ln)}
-.tot{display:flex;justify-content:space-between;font-size:18px;padding:12px 0;border-top:1px solid var(--ln);margin-top:10px}
-
-.f label,.f legend{display:block;font-weight:600;font-size:14px;margin:0 0 6px;padding:0}
-.f>div,.f>fieldset{margin:0 0 14px;border:0;padding:0}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-input[type=text],input[type=email],input[type=url],input[type=number],input[type=password],select,textarea{width:100%;font:15px Figtree,sans-serif;padding:10px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--ink)}
-
-.pay{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pay label{position:relative;border:1px solid var(--ln);border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;background:var(--bg)}
+.dr .dlg{margin:0;height:100%;border-radius:0;width:min(440px,100%);display:flex;flex-direction:column}
+.grow{flex:1;overflow:auto;padding-right:4px}
+.ci{display:flex;justify-content:space-between;gap:14px;padding:14px 0;border-top:1px solid var(--ln)}
+.tot{display:flex;justify-content:space-between;font-size:18px;padding:14px 0;border-top:1px solid var(--ln);margin-top:12px;font-weight:700}
+.f label{display:block;font-weight:600;font-size:14px;margin:0 0 6px}
+.f>div{margin:0 0 16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+input,select,textarea{width:100%;font:15px Figtree,sans-serif;padding:12px 14px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--ink)}
+.pay{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pay label{position:relative;border:1px solid var(--ln);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;background:var(--bg)}
 .pay input{position:absolute;opacity:0;inset:0;cursor:pointer}
-.pay label:has(input:checked){border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac);background:rgba(2,132,199,0.06)}
-
-.err{color:#DC2626;font-size:13px;margin-top:6px}
-
-@media(max-width:760px){
-.wrap{padding:0 14px}
-.hero{grid-template-columns:1fr;gap:20px;padding-top:16px}
-.brand small{display:none}
-.tools{margin-left:auto;gap:6px}
-.user-badge{display:none}
-nav{order:3;flex-basis:100%;margin:4px -6px 0;padding-bottom:4px;border-top:1px solid var(--ln)}
-.about{grid-template-columns:1fr;gap:16px}
-.grid{grid-template-columns:1fr}
-.filter-bar{flex-direction:column;align-items:stretch}
-}
+.pay label:has(input:checked){border-color:var(--ac);background:rgba(2,132,199,0.06)}
 </style>
 </head>
 <body>
 
 <div id="authGate">
   <div class="auth-box">
-    <div class="auth-header">
-      <img src="company logo.jpeg" alt="CINEX Official Logo" class="auth-logo" onerror="this.src='https://i.ibb.co/hR4y51Y/company-logo.jpg'">
-      <p class="auth-title">Welcome to CINEX.CO</p>
-      <p class="mu" style="font-size:14px;margin-top:4px">INNOVATE • CREATE • EXCEL</p>
+    <div style="text-align:center;margin-bottom:24px">
+      <img src="company logo.jpeg" alt="CINEX Logo" class="auth-logo" onerror="this.src='https://i.ibb.co/hR4y51Y/company-logo.jpg'">
+      <p style="font-family:'Schibsted Grotesk';font-size:22px;font-weight:700;margin:0 0 4px">Welcome to CINEX.CO</p>
+      <p class="mu" style="font-size:13px;letter-spacing:0.04em">INNOVATE • CREATE • EXCEL</p>
     </div>
-
     <div class="auth-tabs">
       <button id="tabRegister" class="active" onclick="CinexAuth.switchTab('register')">Register</button>
       <button id="tabLogin" onclick="CinexAuth.switchTab('login')">Sign In</button>
     </div>
-
     <form id="regForm" class="f" onsubmit="CinexAuth.handleRegister(event)">
-      <div><label for="regName">Full Name</label><input type="text" id="regName" required placeholder="e.g. Mariama Sesay"></div>
-      <div><label for="regEmail">Email Address</label><input type="email" id="regEmail" required placeholder="name@example.com"></div>
-      <div><label for="regPass">Password</label><input type="password" id="regPass" minlength="4" required placeholder="Create password"></div>
-      <button class="btn pri full" type="submit" style="margin-top:8px">Create Account &amp; Access</button>
+      <div><label>Full Name</label><input type="text" id="regName" required placeholder="e.g. Mariama Sesay"></div>
+      <div><label>Email Address</label><input type="email" id="regEmail" required placeholder="name@example.com"></div>
+      <div><label>Password</label><input type="password" id="regPass" minlength="4" required placeholder="Create password"></div>
+      <button class="btn pri full" type="submit" style="margin-top:4px">Create Account</button>
     </form>
-
     <form id="loginForm" class="f" hidden onsubmit="CinexAuth.handleLogin(event)">
-      <div><label for="logEmail">Email Address</label><input type="email" id="logEmail" required placeholder="name@example.com"></div>
-      <div><label for="logPass">Password</label><input type="password" id="logPass" required placeholder="Enter password"></div>
-      <p class="err" id="authError" hidden>Invalid email or password.</p>
-      <button class="btn pri full" type="submit" style="margin-top:8px">Sign In to CINEX.CO</button>
+      <div><label>Email Address</label><input type="email" id="logEmail" required placeholder="name@example.com"></div>
+      <div><label>Password</label><input type="password" id="logPass" required placeholder="Enter password"></div>
+      <p id="authError" style="color:#DC2626;font-size:13px;margin-bottom:12px" hidden>Invalid email or password.</p>
+      <button class="btn pri full" type="submit" style="margin-top:4px">Sign In</button>
     </form>
   </div>
 </div>
@@ -256,33 +127,27 @@ nav{order:3;flex-basis:100%;margin:4px -6px 0;padding-bottom:4px;border-top:1px 
   <div class="wrap bar">
     <a class="brand" href="/marketplace" onclick="return Cinex.navClick(event,'marketplace')">
       <img src="company logo.jpeg" alt="CINEX Logo" onerror="this.src='https://i.ibb.co/hR4y51Y/company-logo.jpg'">
-      <div>
-        <span>CINEX.CO</span>
-        <small>Innovate • Create • Excel</small>
-      </div>
+      <div><span>CINEX.CO</span><small>Innovate • Create • Excel</small></div>
     </a>
-    
-    <nav id="nav" aria-label="Main Navigation">
-      <a href="/marketplace" data-v="marketplace" onclick="return Cinex.navClick(event,'marketplace')">Marketplace</a>
-      <a href="/orders" data-v="orders" onclick="return Cinex.navClick(event,'orders')">My Orders</a>
+    <nav>
+      <a href="/marketplace" onclick="return Cinex.navClick(event,'marketplace')">Marketplace</a>
+      <a href="/orders" onclick="return Cinex.navClick(event,'orders')">My Orders</a>
       <button type="button" onclick="Cinex.open('vendorM')">Vendor Dashboard</button>
       <button type="button" id="adminVerifyNavBtn" onclick="Cinex.openAdminVerify()" style="color:var(--grn);font-weight:700;display:none">🔒 Admin Escrow <span id="adminPendingBadge" class="cn" style="margin-left:4px;background:#D97706">0</span></button>
-      <a href="/about" data-v="about" onclick="return Cinex.navClick(event,'about')">About</a>
-      <a href="/terms" data-v="terms" onclick="return Cinex.navClick(event,'terms')">Terms</a>
-      <a href="/faq" data-v="faq" onclick="return Cinex.navClick(event,'faq')">FAQs</a>
+      <a href="/about" onclick="return Cinex.navClick(event,'about')">About</a>
+      <a href="/terms" onclick="return Cinex.navClick(event,'terms')">Terms</a>
+      <a href="/faq" onclick="return Cinex.navClick(event,'faq')">FAQs</a>
     </nav>
-    
     <div class="tools">
-      <button class="curr-btn" id="currToggle" onclick="Cinex.toggleCurrency()">Currency: NLe</button>
-      <span class="user-badge" id="userBadge">User</span>
+      <button class="btn" id="currToggle" onclick="Cinex.toggleCurrency()" style="font-size:12px;padding:8px 12px">NLe</button>
+      <span class="user-badge" id="userBadge" style="font-size:13px;font-weight:600;color:var(--mu);padding:6px 12px;background:var(--bg);border-radius:20px;border:1px solid var(--ln)">User</span>
       <button class="btn" onclick="Cinex.open('sellM')">Sell Item</button>
       <button class="btn" onclick="Cinex.open('cartM')"><span class="cn">0</span></button>
-      <button class="btn" onclick="CinexAuth.logout()" title="Sign Out"><small>Logout</small></button>
+      <button class="btn" onclick="CinexAuth.logout()" title="Sign Out" style="padding:8px 12px;font-size:13px">Logout</button>
     </div>
   </div>
 </header>
 
-<div class="wrap"><nav class="breadcrumbs" id="breadcrumb"></nav></div>
 <main id="app" class="wrap"></main>
 
 <footer class="site">
@@ -292,104 +157,92 @@ nav{order:3;flex-basis:100%;margin:4px -6px 0;padding-bottom:4px;border-top:1px 
       <a href="tel:031921336">031921336</a>
       <a href="mailto:Thomasgarrick141@gmail.com">Thomasgarrick141@gmail.com</a>
       <a href="/privacy" onclick="return Cinex.navClick(event,'privacy')">Privacy Policy</a>
+      <a href="/cookies" onclick="return Cinex.navClick(event,'cookies')">Cookies Policy</a>
     </div>
   </div>
 </footer>
 
-<div class="ov" id="detailM"><div class="dlg" style="max-width:560px">
-  <div class="dh"><span class="cat-tag" id="detCat"></span><button class="x" onclick="Cinex.close()" data-ic="x"></button></div>
-  <div id="detImgBox" style="aspect-ratio:16/10;background:var(--bg);border-radius:12px;overflow:hidden;border:1px solid var(--ln);margin-bottom:16px;position:relative">
-    <img id="detImg" src="" alt="" style="width:100%;height:100%;object-fit:cover"><span id="detSoldTag" class="sold-ribbon" hidden>SOLD OUT</span>
-  </div>
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px">
-    <h2 id="detTitle" style="font-size:21px"></h2><strong id="detPrice" style="font-size:20px;color:var(--ac);white-space:nowrap"></strong>
-  </div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--mu);margin-bottom:14px">
-    <span id="detCond"></span><span>•</span><span id="detLoc"></span><span>•</span><span id="detSeller"></span>
-  </div>
-  <p id="detDesc" style="font-size:15px;line-height:1.6;color:var(--ink);background:var(--bg);padding:14px;border-radius:10px;border:1px solid var(--ln);margin-bottom:18px"></p>
-  <div id="detActions" style="display:flex;gap:8px;flex-wrap:wrap"></div>
-</div></div>
-
 <div class="ov dr" id="cartM"><div class="dlg">
-  <div class="dh"><h2>Shopping Cart &amp; Escrow</h2><button class="x" onclick="Cinex.close()" data-ic="x"></button></div>
+  <div class="dh"><h2>Shopping Cart &amp; Escrow</h2><button class="x" onclick="Cinex.close()">✕</button></div>
   <div id="cartItems" class="grow"></div>
-  <div id="cartFoot" hidden class="f">
+  <div id="cartFoot" hidden class="f" style="margin-top:16px;border-top:1px solid var(--ln);padding-top:16px">
     <div>
-      <label for="delZone">Delivery / Pickup Option</label>
+      <label>Delivery Option</label>
       <select id="delZone" onchange="cartR()">
-        <option value="0">Self-Pickup / Meetup in Freetown (Free)</option>
-        <option value="35">Rider Delivery — Central / West Freetown (+NLe 35)</option>
-        <option value="50">Rider Delivery — East End / Waterloo (+NLe 50)</option>
-        <option value="100">Nationwide Waybill — Bo / Kenema / Makeni (+NLe 100)</option>
+        <option value="0">Self-Pickup in Freetown (Free)</option>
+        <option value="35">Rider Delivery — Central/West Freetown (+NLe 35)</option>
+        <option value="50">Rider Delivery — East End/Waterloo (+NLe 50)</option>
       </select>
     </div>
-    <div><label for="delAddr">Delivery Address &amp; Landmark</label><input type="text" id="delAddr" placeholder="e.g. 14 Wilkinson Road"></div>
-    <div><label for="delPhone">Contact Phone Number</label><input type="text" id="delPhone" placeholder="076123456"></div>
-    <fieldset><legend>Payment Method</legend>
+    <div><label>Delivery Address</label><input type="text" id="delAddr" placeholder="14 Wilkinson Road"></div>
+    <div><label>Phone Number</label><input type="text" id="delPhone" placeholder="076123456"></div>
+    <div><label>Payment Method</label>
       <div class="pay" onclick="Cinex.updateMerchantNumber()">
         <label><input type="radio" name="pm" value="Orange Money" checked>Orange</label>
         <label><input type="radio" name="pm" value="Afrimoney">Afrimoney</label>
         <label><input type="radio" name="pm" value="QMoney">QMoney</label>
       </div>
-      <div style="background:var(--bg);padding:10px 12px;border-radius:8px;border:1px solid var(--ln);margin-top:10px;font-size:13px">
-        Send payment to: <strong id="activeMerchantNumber" style="color:var(--ac)">076819474 (Orange Money)</strong>
+      <div style="background:var(--bg);padding:12px;border-radius:8px;border:1px solid var(--ln);margin-top:10px;font-size:13px">
+        Send to: <strong id="activeMerchantNumber" style="color:var(--ac)">076819474 (Orange Money)</strong>
       </div>
-    </fieldset>
-    <div><label for="receiptFile">Upload Payment Receipt Screenshot</label><input type="file" id="receiptFile" accept="image/*" onchange="Cinex.handleReceiptPhoto(event)"></div>
-    <div style="font-size:13px;color:var(--mu);display:flex;justify-content:space-between;margin-top:12px"><span>Subtotal:</span><span id="cartSub"></span></div>
-    <div style="font-size:13px;color:var(--mu);display:flex;justify-content:space-between"><span>Delivery:</span><span id="cartDel"></span></div>
+    </div>
+    <div><label>Upload Payment Receipt Screenshot</label><input type="file" id="receiptFile" accept="image/*" onchange="Cinex.handleReceiptPhoto(event)"></div>
+    <div style="font-size:14px;color:var(--mu);display:flex;justify-content:space-between;margin-top:14px"><span>Subtotal:</span><span id="cartSub"></span></div>
+    <div style="font-size:14px;color:var(--mu);display:flex;justify-content:space-between;margin-top:6px"><span>Delivery:</span><span id="cartDel"></span></div>
     <div class="tot"><span>Total</span><strong id="cartTotal"></strong></div>
-    <button class="btn pri full" onclick="Cinex.submitOrderForConfirmation()" style="margin-top:10px">Submit for Admin Confirmation</button>
+    <button class="btn pri full" onclick="Cinex.submitOrderForConfirmation()" style="margin-top:14px">Submit for Admin Confirmation</button>
   </div>
 </div></div>
 
 <div class="ov" id="sellM"><div class="dlg">
-  <div class="dh"><h2>List an Item for Sale</h2><button class="x" onclick="Cinex.close()" data-ic="x"></button></div>
+  <div class="dh"><h2>List an Item for Sale</h2><button class="x" onclick="Cinex.close()">✕</button></div>
   <form class="f" onsubmit="Cinex.submitListing(event)">
-    <div><label for="pT">Item Title</label><input type="text" id="pT" required placeholder="e.g. iPhone 13"></div>
+    <div><label>Item Title</label><input type="text" id="pT" required placeholder="e.g. iPhone 13"></div>
     <div class="g2">
-      <div><label for="pP">Price (NLe)</label><input type="number" id="pP" min="0" required placeholder="350"></div>
-      <div><label for="pCond">Condition</label><select id="pCond"><option>Brand New</option><option>UK / Foreign Used</option><option>Locally Used (Clean)</option><option>Digital Service</option></select></div>
+      <div><label>Price (NLe)</label><input type="number" id="pP" min="0" required placeholder="350"></div>
+      <div><label>Condition</label><select id="pCond"><option>Brand New</option><option>UK / Foreign Used</option><option>Locally Used (Clean)</option><option>Digital Service</option></select></div>
     </div>
     <div class="g2">
-      <div><label for="pC">Category</label><select id="pC"><option>Phones &amp; Gadgets</option><option>Fashion &amp; Wearables</option><option>Home &amp; Living</option><option>Electronics &amp; Hardware</option><option>Beauty &amp; Personal Care</option><option>Local Services</option></select></div>
-      <div><label for="pL">Area in Freetown</label><input type="text" id="pL" placeholder="Wilberforce"></div>
+      <div><label>Category</label><select id="pC"><option>Phones &amp; Gadgets</option><option>Fashion &amp; Wearables</option><option>Electronics &amp; Hardware</option><option>Local Services</option></select></div>
+      <div><label>Area in Freetown</label><input type="text" id="pL" placeholder="Wilberforce"></div>
     </div>
-    <div><label for="pW">Mobile Money Number (for Payout)</label><input type="text" id="pW" placeholder="23276000000" required></div>
-    <div><label for="pI">Product Photo</label><input type="file" id="pI" accept="image/*" onchange="Cinex.handleListingPhoto(event)"><div id="pIPreview" style="margin-top:8px;max-height:120px;display:none;border-radius:8px;overflow:hidden"><img id="pIImg" src="" style="width:100%;height:120px;object-fit:cover"></div></div>
-    <div><label for="pD">Description</label><textarea id="pD" rows="3" placeholder="Describe your item..."></textarea></div>
-    <button class="btn pri full" type="submit">Publish to CINEX.CO</button>
+    <div><label>Mobile Money Number (for Payout)</label><input type="text" id="pW" placeholder="23276000000" required></div>
+    <div><label>Product Photo</label><input type="file" id="pI" accept="image/*" onchange="Cinex.handleListingPhoto(event)"></div>
+    <div><label>Description</label><textarea id="pD" rows="3" placeholder="Describe item..."></textarea></div>
+    <button class="btn pri full" type="submit" style="margin-top:6px">Publish Listing</button>
   </form>
 </div></div>
 
 <div class="ov" id="adminVerifyM"><div class="dlg" style="max-width:680px">
-  <div class="dh"><h2>🔒 Admin Escrow &amp; Payout Hub</h2><button class="x" onclick="Cinex.close()" data-ic="x"></button></div>
-  <div id="adminOrdersQueue" style="max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:12px"></div>
+  <div class="dh"><h2>🔒 Admin Escrow &amp; Payout Hub</h2><button class="x" onclick="Cinex.close()">✕</button></div>
+  <div id="adminOrdersQueue" style="max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:14px"></div>
 </div></div>
 
 <div class="ov" id="receiptModal"><div class="dlg" style="max-width:520px;text-align:center">
-  <div class="dh"><h2>Payment Receipt</h2><button class="x" onclick="Cinex.close()" data-ic="x"></button></div>
-  <div style="max-height:400px;overflow:hidden;border-radius:10px;background:var(--bg);margin-bottom:14px"><img id="receiptModalImg" src="" style="width:100%;object-fit:contain"></div>
+  <div class="dh"><h2>Payment Receipt</h2><button class="x" onclick="Cinex.close()">✕</button></div>
+  <div style="max-height:400px;overflow:hidden;border-radius:10px;background:var(--bg);margin-bottom:18px"><img id="receiptModalImg" src="" style="width:100%;object-fit:contain"></div>
   <button class="btn pri full" onclick="Cinex.close()">Close</button>
 </div></div>
 
 <div class="ov" id="vendorM"><div class="dlg" style="max-width:600px">
-  <div class="dh"><h2>Vendor Dashboard</h2><button class="x" onclick="Cinex.close()" data-ic="x"></button></div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
-    <div style="background:var(--bg);padding:14px;border-radius:10px;text-align:center"><small class="mu">My Listings</small><div id="vendorListingsCount" style="font-size:22px;font-weight:800">0</div></div>
-    <div style="background:var(--bg);padding:14px;border-radius:10px;text-align:center"><small class="mu">Orders Received</small><div id="vendorOrdersCount" style="font-size:22px;font-weight:800;color:var(--ac)">0</div></div>
+  <div class="dh"><h2>Vendor Dashboard</h2><button class="x" onclick="Cinex.close()">✕</button></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+    <div style="background:var(--bg);padding:18px;border-radius:12px;text-align:center"><small class="mu">My Listings</small><div id="vendorListingsCount" style="font-size:24px;font-weight:800;margin-top:4px">0</div></div>
+    <div style="background:var(--bg);padding:18px;border-radius:12px;text-align:center"><small class="mu">Orders Received</small><div id="vendorOrdersCount" style="font-size:24px;font-weight:800;color:var(--ac);margin-top:4px">0</div></div>
   </div>
-  <h3>My Listings</h3><div id="vendorListingsBox" style="max-height:180px;overflow-y:auto;background:var(--bg);padding:8px;border-radius:10px;margin-bottom:12px"></div>
+</div></div>
+
+<div class="ov" id="adminPhotoM"><div class="dlg" style="max-width:440px">
+  <div class="dh"><h2>Update Founder Photo</h2><button class="x" onclick="Cinex.close()">✕</button></div>
+  <p class="mu" style="font-size:14px;margin-bottom:16px">Upload a clear photo for Thomas Garrick:</p>
+  <input type="file" id="ceoPhotoFile" accept="image/*" onchange="Cinex.saveCeoPhoto(event)">
 </div></div>
 
 <script>
-// ==========================================
-// SUPABASE LIVE DATABASE CONFIGURATION
-// ==========================================
 const SUPABASE_URL = "https://iujlycdhoibixmpqamtt.supabase.co";
 const SUPABASE_KEY = "sb_publishable_jOshaYKaWYDARpSw1FVJ4g_g9v_mBsC";
 const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+const ADMIN_EMAILS = ["thomasgarrick141@gmail.com", "admin@cinex.co"];
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -423,16 +276,15 @@ let currencyMode = store.get("cinex_currency") || "NLe";
 const USD_RATE = 22.5;
 const fmt = n => currencyMode === "USD" ? "$" + (Number(n) / USD_RATE).toFixed(2) : "NLe " + Number(n).toLocaleString();
 
-const IC = { cart: '<path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.8L19 8H6"/><circle cx="9" cy="19" r="1.2"/><circle cx="17" cy="19" r="1.2"/>', plus: '<path d="M12 5v14M5 12h14"/>', phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2 z"/>', x: '<path d="M6 6l12 12M18 6L6 18"/>' };
-const ic = n => '<svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + IC[n] + '</svg>';
-const icons = r => r.querySelectorAll("[data-ic]:not([data-d])").forEach(e => { e.insertAdjacentHTML("afterbegin", ic(e.dataset.ic)); e.dataset.d = 1; });
-
 const CinexAuth = {
   currentUser: JSON.parse(store.get("cinex_current_user")) || null,
   init() {
     if (this.currentUser) {
       $("#authGate").hidden = true;
-      $("#userBadge").textContent = this.currentUser.name.split(" ")[0];
+      if (this.currentUser.name) {
+        const badge = $("#userBadge");
+        if (badge) badge.textContent = this.currentUser.name;
+      }
       checkAdminAccess();
     } else {
       $("#authGate").hidden = false;
@@ -453,17 +305,13 @@ const CinexAuth = {
     const email = $("#regEmail").value.trim().toLowerCase();
     const pass = $("#regPass").value;
     const user = { name, email, pass };
-
-    if (supabaseClient) {
-      await supabaseClient.from('profiles').insert([user]);
-    }
+    if (supabaseClient) await supabaseClient.from('profiles').insert([user]);
     this.setUser(user);
   },
   async handleLogin(e) {
     e.preventDefault();
     const email = $("#logEmail").value.trim().toLowerCase();
     const pass = $("#logPass").value;
-
     let found = null;
     if (supabaseClient) {
       const { data } = await supabaseClient.from('profiles').select('*').eq('email', email).eq('pass', pass).single();
@@ -473,17 +321,17 @@ const CinexAuth = {
       const localUsers = JSON.parse(store.get("cinex_users")) || [];
       found = localUsers.find(u => u.email === email && u.pass === pass);
     }
-    if (found) {
-      this.setUser(found);
-    } else {
-      $("#authError").hidden = false;
-    }
+    if (found) this.setUser(found);
+    else $("#authError").hidden = false;
   },
   setUser(user) {
     this.currentUser = user;
     store.set("cinex_current_user", JSON.stringify(user));
     $("#authGate").hidden = true;
-    $("#userBadge").textContent = user.name.split(" ")[0];
+    if (user && user.name) {
+      const badge = $("#userBadge");
+      if (badge) badge.textContent = user.name;
+    }
     checkAdminAccess();
   },
   logout() {
@@ -493,21 +341,23 @@ const CinexAuth = {
   }
 };
 
-const ADMIN_EMAILS = ["thomasgarrick141@gmail.com", "admin@cinex.co"];
 function checkAdminAccess() {
   const user = CinexAuth.currentUser;
   const btn = $("#adminVerifyNavBtn");
-  if (!btn) return;
-  if (user && ADMIN_EMAILS.includes(user.email.toLowerCase())) {
-    btn.style.display = "inline-flex";
-  } else {
-    btn.style.display = "none";
+  if (user && user.name) {
+    const badge = $("#userBadge");
+    if (badge) badge.textContent = user.name;
   }
+  if (!btn) return;
+  if (user && ADMIN_EMAILS.includes(user.email.toLowerCase())) btn.style.display = "inline-flex";
+  else btn.style.display = "none";
 }
 
 const DEFAULTS = [
   { id: 1, title: "Custom Tailored African Print Suit Set", price: 650, condition: "Brand New", category: "Fashion & Wearables", location: "Wilberforce", image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=600&q=75", description: "Handmade premium cotton African print 2-piece set.", seller: "Mariama Tailoring Studio", verified: true, sold: false, phone: "23276819474" },
-  { id: 2, title: "Samsung Galaxy A54 5G (128GB)", price: 3400, condition: "Brand New", category: "Phones & Gadgets", location: "Freetown", image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=75", description: "Brand new sealed in box with 1-year warranty.", seller: "CINEX Tech Hub", verified: true, sold: false, phone: "23231921336" }
+  { id: 2, title: "Samsung Galaxy A54 5G (128GB)", price: 3400, condition: "Brand New", category: "Phones & Gadgets", location: "Freetown", image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=75", description: "Brand new sealed in box with 1-year warranty.", seller: "CINEX Tech Hub", verified: true, sold: false, phone: "23231921336" },
+  { id: 3, title: "Solar Inverter System 1.5kVA (Complete Setup)", price: 7800, condition: "Brand New", category: "Electronics & Hardware", location: "Wilkinson Road", image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=600&q=75", description: "Reliable backup power system for homes and offices.", seller: "CINEX Tech Hub", verified: true, sold: false, phone: "23231921336" },
+  { id: 4, title: "Professional iPhone FRP Unlock & Firmware Service", price: 150, condition: "Digital Service", category: "Local Services", location: "Freetown", image: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=600&q=75", description: "Fast professional unlocking and device flashing.", seller: "Thomas Garrick", verified: true, sold: false, phone: "23231921336" }
 ];
 
 let products = DEFAULTS;
@@ -538,40 +388,42 @@ const updatePendingBadge = () => {
 };
 
 const ROUTE_META = {
-  marketplace: { slug: "/marketplace", title: "CINEX.CO | Open Technology Marketplace Freetown", desc: "Buy and sell phones, gadgets, and tech services in Sierra Leone." },
-  orders: { slug: "/orders", title: "My Orders & Escrow | CINEX.CO", desc: "Track your orders and escrow payments." },
-  about: { slug: "/about", title: "About Founder Thomas Garrick | CINEX.CO", desc: "Founder story of CINEX.CO." },
-  faq: { slug: "/faq", title: "FAQs | CINEX.CO", desc: "Frequently asked questions." },
-  terms: { slug: "/terms", title: "Terms & Policies | CINEX.CO", desc: "Merchant rules." },
-  privacy: { slug: "/privacy", title: "Privacy Policy | CINEX.CO", desc: "Privacy details." }
+  marketplace: { title: "CINEX.CO | Open Technology Marketplace Freetown" },
+  orders: { title: "My Orders & Escrow | CINEX.CO" },
+  about: { title: "About Founder Thomas Garrick | CINEX.CO" },
+  faq: { title: "FAQs | CINEX.CO" },
+  terms: { title: "Terms & Policies | CINEX.CO" },
+  privacy: { title: "Privacy Policy | CINEX.CO" },
+  cookies: { title: "Cookies Policy | CINEX.CO" }
 };
 
 const card = p => `
-  <article class="card ${p.sold ? 'is-sold' : ''}">
+  <article class="card">
     <div class="ph" onclick="Cinex.openDetail(${p.id})">
-      ${p.sold ? `<span class="sold-ribbon">SOLD OUT</span>` : ''}
-      ${p.condition ? `<span class="cond-badge">${esc(p.condition)}</span>` : ''}
+      ${p.sold ? `<span style="position:absolute;top:12px;left:12px;background:#DC2626;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;z-index:2">SOLD OUT</span>` : ''}
+      <span style="position:absolute;bottom:10px;left:10px;background:rgba(15,23,42,0.78);color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px">${esc(p.condition)}</span>
       <span>${esc(p.category)}</span>
       ${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" onerror="this.remove()">` : ""}
     </div>
     <div class="cb">
-      <div class="meta-row"><span class="cat-tag">${esc(p.category)}</span><span class="loc-tag">📍 ${esc(p.location || 'Freetown')}</span></div>
+      <div><span class="cat-tag">${esc(p.category)}</span> <span style="font-size:11px;color:var(--mu);float:right">📍 ${esc(p.location || 'Freetown')}</span></div>
       <h3 onclick="Cinex.openDetail(${p.id})">${esc(p.title)}</h3>
-      <div class="seller-row"><span class="seller-name">Seller: ${esc(p.seller || 'Vendor')}</span>${p.verified ? `<span class="v-badge">✓ Verified</span>` : ''}</div>
-      <p>${esc(p.description)}</p>
-      <div class="foot">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <span class="price">${fmt(p.price)}</span>
-          <button class="lnk" onclick="Cinex.openDetail(${p.id})">View Details</button>
-        </div>
-        <div class="foot-btns">
-          <button class="btn pri" onclick="Cinex.add(${p.id},this)" ${p.sold ? 'disabled' : ''}>${p.sold ? 'Sold Out' : 'Add to Cart'}</button>
-          ${p.phone ? `<a href="https://wa.me/${p.phone}?text=${encodeURIComponent('Hi, interested in: ' + p.title)}" target="_blank" class="btn btn-wa">WhatsApp</a>` : ''}
+      <p style="font-size:14px;color:var(--mu);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0">${esc(p.description)}</p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--ln)">
+        <span class="price">${fmt(p.price)}</span>
+        <div style="display:flex;gap:6px">
+          <button class="btn pri" onclick="Cinex.add(${p.id},this)" ${p.sold ? 'disabled' : ''} style="padding:8px 12px">${p.sold ? 'Sold Out' : 'Add to Cart'}</button>
+          ${p.phone ? `<a href="https://wa.me/${p.phone}?text=${encodeURIComponent('Hi, I am interested in your listing on CINEX.CO: ' + p.title)}" target="_blank" class="btn btn-wa" style="padding:8px 12px">WhatsApp</a>` : ''}
         </div>
       </div>
     </div>
   </article>
 `;
+
+const isAdminUser = () => {
+  const user = CinexAuth.currentUser;
+  return user && ADMIN_EMAILS.includes(user.email.toLowerCase());
+};
 
 const V = {
   marketplace: () => `
@@ -579,7 +431,7 @@ const V = {
       <div>
         <div class="promise-tag">⚡ Direct Support Promise: Under 24-Hour Response</div>
         <h1>Sierra Leone's Open Marketplace &amp; Tech Solutions</h1>
-        <p class="lede">Buy and sell phones, gadgets, fashion, and tech services securely across Sierra Leone.</p>
+        <p style="color:var(--mu);font-size:17px;margin:0 0 24px;line-height:1.7">Buy and sell phones, gadgets, fashion, and tech services securely across Sierra Leone.</p>
       </div>
       <dl class="facts">
         <div><dt>Platform</dt><dd>CINEX.CO</dd></div>
@@ -588,27 +440,28 @@ const V = {
         <div><dt>Founder</dt><dd>Thomas Garrick</dd></div>
       </dl>
     </section>
-    <div class="escrow-banner">🛡️ CINEX Central Escrow Guarantee: Funds are released to sellers only after delivery is confirmed.</div>
-    <section class="sec" id="listings">
-      <div class="sh"><h2>Marketplace Listings</h2><div class="chips" id="chips"></div></div>
-      <div class="filter-bar">
-        <input type="text" class="search-in" placeholder="Search products or services..." oninput="Cinex.onSearch(this.value)">
+    <div class="escrow-banner">🛡️ CINEX Central Escrow Guarantee: Funds are released to sellers only after delivery confirmation.</div>
+    <section style="padding:24px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+        <h2>Marketplace Listings</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="chips"></div>
       </div>
+      <div class="filter-bar"><input type="text" placeholder="Search products or services..." oninput="Cinex.onSearch(this.value)"></div>
       <div class="grid" id="grid"></div>
     </section>
   `,
   orders: () => `
     <div class="pg">
       <h1>My Orders &amp; Escrow Tracking</h1>
-      <div style="margin-top:20px" id="ordersList">
+      <div style="margin-top:24px">
         ${orders.length ? orders.map(o => `
-          <div class="order-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-              <h2>Order #${o.id}</h2><span class="order-status status-${o.status === 'Awaiting Admin Confirmation' ? 'awaiting' : 'confirmed'}">${o.status}</span>
+          <div style="background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:18px;margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <h2>Order #${o.id}</h2><span style="font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;background:#FEF3C7;color:#D97706">${o.status}</span>
             </div>
-            <div class="mu" style="font-size:14px">Payment: ${esc(o.pm)} | Total: <strong>${fmt(o.total)}</strong></div>
-            <div style="margin-top:8px;font-size:14px"><strong>Items:</strong> ${o.items.map(i => esc(i.title)).join(", ")}</div>
-            ${o.receipt ? `<div style="margin-top:8px"><button class="lnk" onclick="Cinex.viewReceipt('${o.receipt}')">👁️ View Payment Receipt</button></div>` : ''}
+            <div class="mu" style="font-size:14px;margin-bottom:6px">Payment: ${esc(o.pm)} | Total: <strong>${fmt(o.total)}</strong></div>
+            <div style="font-size:14px;margin-bottom:8px"><strong>Items:</strong> ${o.items.map(i => esc(i.title)).join(", ")}</div>
+            ${o.receipt ? `<div><button class="lnk" onclick="Cinex.viewReceipt('${o.receipt}')">👁️ View Payment Receipt</button></div>` : ''}
           </div>
         `).join("") : '<p class="mu">No orders placed yet.</p>'}
       </div>
@@ -616,17 +469,58 @@ const V = {
   `,
   about: () => `
     <div class="pg about">
-      <div class="av">TG</div>
+      <div class="av ${isAdminUser() ? 'admin-editable' : ''}" ${isAdminUser() ? 'onclick="Cinex.open(\'adminPhotoM\')" title="Click to update CEO photo"' : ''}>
+        ${store.get("cinex_ceo_photo") ? `<img src="${store.get("cinex_ceo_photo")}" alt="Thomas Garrick">` : 'TG'}
+      </div>
       <div>
-        <h1>Thomas Garrick</h1><p class="sub-role">Founder &amp; CEO, CINEX.CO</p>
+        <h1>Thomas Garrick</h1><p style="font-size:16px;font-weight:600;color:var(--ac);margin:0 0 16px">Founder &amp; CEO, CINEX.CO</p>
         <h2>Why I Started CINEX.CO</h2>
-        <p class="mu" style="margin-top:12px;line-height:1.6">I set up CINEX.CO to eliminate guesswork in technical solutions and trusted local commerce across Sierra Leone.</p>
+        <p class="mu" style="line-height:1.75;margin-bottom:14px">I built CINEX.CO because I spent years watching talented tech guys, local phone technicians, and independent creators in Freetown struggle to reach customers beyond their immediate neighborhoods. Buyers wanted genuine gadgets and reliable unlocking services, but they were tired of getting scammed on informal social media chats with zero accountability.</p>
+        <p class="mu" style="line-height:1.75">I wanted to create a proper platform where people could transact with peace of mind—using local mobile money tied to a solid escrow system so buyers and honest sellers both win.</p>
       </div>
     </div>
   `,
-  faq: () => `<div class="pg"><h1>FAQs</h1><details><summary>Which payment methods do you accept?</summary><p>Orange Money, Afrimoney, and QMoney through secure admin escrow.</p></details></div>`,
-  terms: () => `<div class="pg"><h1>Terms of Service</h1><p class="mu" style="margin-top:10px">All listings must be authentic and compliant with Sierra Leone trading laws.</p></div>`,
-  privacy: () => `<div class="pg"><h1>Privacy Policy</h1><p class="mu" style="margin-top:10px">Your payment numbers are protected.</p></div>`,
+  faq: () => `
+    <div class="pg">
+      <h1>Frequently Asked Questions</h1>
+      <p class="mu" style="margin-bottom:20px">Everything you need to know about secure escrow shopping and selling in Sierra Leone.</p>
+      <details><summary>1. How does CINEX Escrow protect my money?</summary><p>Your mobile money payment is sent directly to CINEX central escrow. Once your order is successfully delivered and verified, admin releases the funds to the seller.</p></details>
+      <details><summary>2. Which mobile money networks are supported?</summary><p>We support Orange Money, Afrimoney, and QMoney across all transactions.</p></details>
+      <details><summary>3. How do I list an item for sale?</summary><p>Click "+ Sell Item" in the navigation bar, fill in your item details, and publish instantly to the live marketplace.</p></details>
+    </div>
+  `,
+  terms: () => `
+    <div class="pg">
+      <h1>Terms of Service &amp; Policies</h1>
+      <p class="mu" style="line-height:1.75;margin-bottom:16px">Welcome to CINEX.CO. By accessing and using our marketplace and technical services, you agree to comply with our community standards and commercial terms.</p>
+      <h2>1. User Registration &amp; Conduct</h2>
+      <p class="mu" style="line-height:1.75;margin-bottom:16px">Users must register with verified contact details. Fraudulent activities, misrepresentation of merchandise, or harassment will result in immediate account suspension.</p>
+      <h2>2. Escrow &amp; Transactions</h2>
+      <p class="mu" style="line-height:1.75">All payments are held securely in escrow until fulfillment is verified by administrative audit or buyer confirmation.</p>
+    </div>
+  `,
+  privacy: () => `
+    <div class="pg">
+      <h1>Privacy Policy &amp; Data Protection</h1>
+      <p class="mu" style="line-height:1.75;margin-bottom:16px">At CINEX.CO, we respect and safeguard your personal privacy. This Privacy Policy outlines how we collect, use, and protect your information when you use our marketplace and escrow services in Freetown, Sierra Leone.</p>
+      <h2>1. Information We Collect</h2>
+      <p class="mu" style="line-height:1.75;margin-bottom:16px">We collect essential details required to facilitate secure transactions, including your full name, email address, delivery address in Freetown or provinces, and mobile money contact numbers (Orange Money, Afrimoney, QMoney).</p>
+      <h2>2. Use of Information</h2>
+      <p class="mu" style="line-height:1.75;margin-bottom:16px">Your information is used strictly for authenticating your user account, verifying mobile money escrow payments, coordinating rider deliveries or pickups, and communicating updates regarding your orders. We never sell or distribute your private data to third-party advertisers.</p>
+      <h2>3. Data Security</h2>
+      <p class="mu" style="line-height:1.75">We implement robust technical measures, encrypted local caching, and secure cloud databases (Supabase) to ensure your transactions remain confidential and protected against unauthorized access.</p>
+    </div>
+  `,
+  cookies: () => `
+    <div class="pg">
+      <h1>Cookies &amp; Tracking Policy</h1>
+      <p class="mu" style="line-height:1.75;margin-bottom:16px">CINEX.CO utilizes cookies and local storage tokens to optimize your browsing experience, maintain active user authentication sessions securely, remember your preferred currency mode (NLe vs USD), and preserve items in your active shopping cart.</p>
+      <h2>What Types of Cookies We Use</h2>
+      <p class="mu" style="line-height:1.75;margin-bottom:16px"><strong>1. Essential Session Cookies:</strong> Required to keep you securely signed in to your account and verify administrator privileges.<br><strong>2. Functional Preference Cookies:</strong> Stores your currency selection and active marketplace filter parameters.<br><strong>3. Analytics &amp; Caching:</strong> Local storage caches used to retrieve marketplace listings quickly and maintain checkout drafts.</p>
+      <h2>Managing Cookies</h2>
+      <p class="mu" style="line-height:1.75">You retain the right to disable or clear cookies through your web browser preferences at any time. Please note that clearing authentication cookies will require you to sign in to your CINEX.CO account again.</p>
+    </div>
+  `,
   "404": () => `<div class="pg" style="text-align:center"><h1>404</h1><a class="btn pri" href="/marketplace" onclick="return Cinex.navClick(event,'marketplace')">Return Home</a></div>`
 };
 
@@ -638,7 +532,6 @@ function render(v) {
   $("#app").innerHTML = V[k]();
   document.title = ROUTE_META[k]?.title || "CINEX.CO";
   if (k === "marketplace") listings();
-  icons($("#app"));
   window.scrollTo(0, 0);
 }
 
@@ -646,8 +539,7 @@ function listings() {
   const g = $("#grid");
   if (!g) return;
   const cats = ["All", ...new Set(products.map(p => p.category))];
-  $("#chips").innerHTML = cats.map(c => `<button data-c="${esc(c)}" aria-pressed="${c === filter}" onclick="Cinex.filter(this.dataset.c)">${esc(c)}</button>`).join("");
-  
+  $("#chips").innerHTML = cats.map(c => `<button class="btn" style="padding:6px 14px;font-size:13px" onclick="Cinex.filter('${esc(c)}')">${esc(c)}</button>`).join("");
   let l = products.filter(p => (filter === "All" || p.category === filter) && (!searchQuery || p.title.toLowerCase().includes(searchQuery)));
   g.innerHTML = l.length ? l.map(card).join("") : '<p class="mu">No listings found.</p>';
 }
@@ -672,7 +564,7 @@ const Cinex = {
   toggleCurrency() {
     currencyMode = currencyMode === "NLe" ? "USD" : "NLe";
     store.set("cinex_currency", currencyMode);
-    $("#currToggle").textContent = `Currency: ${currencyMode}`;
+    $("#currToggle").textContent = currencyMode;
     render(cur());
   },
   add(id, btn) {
@@ -710,10 +602,7 @@ const Cinex = {
       verified: true,
       sold: false
     };
-
-    if (supabaseClient) {
-      await supabaseClient.from('products').insert([newProd]);
-    }
+    if (supabaseClient) await supabaseClient.from('products').insert([newProd]);
     products.unshift(newProd);
     e.target.reset(); this.close(); this.go("marketplace");
   },
@@ -731,20 +620,43 @@ const Cinex = {
       receipt: currentReceiptImage,
       buyer: CinexAuth.currentUser?.name || "Customer"
     };
-
-    if (supabaseClient) {
-      await supabaseClient.from('orders').insert([newOrder]);
-    }
+    if (supabaseClient) await supabaseClient.from('orders').insert([newOrder]);
     orders.unshift(newOrder);
     cart = []; count(); this.close(); alert("Order submitted to escrow!"); this.go("orders");
   },
   viewReceipt(url) { $("#receiptModalImg").src = url; this.open("receiptModal"); },
+  async saveCeoPhoto(e) {
+    if (!isAdminUser()) {
+      alert("Unauthorized: Only the admin email can update the Founder photo.");
+      return;
+    }
+    const f = e.target.files[0];
+    if (f) {
+      const dataUrl = await compressImageFile(f, 300, 0.85);
+      store.set("cinex_ceo_photo", dataUrl);
+      this.close();
+      render(cur());
+    }
+  },
+  async confirmOrder(id) {
+    const ord = orders.find(o => o.id === id);
+    if (ord) {
+      ord.status = "Payment Confirmed & Escrow Secured";
+      if (supabaseClient) await supabaseClient.from('orders').update({ status: ord.status }).eq('id', id);
+      this.openAdminVerify();
+      updatePendingBadge();
+    }
+  },
   openAdminVerify() {
-    $("#adminOrdersQueue").innerHTML = orders.map(o => `
-      <div style="background:var(--bg);padding:14px;border-radius:10px;border:1px solid var(--ln)">
-        <strong>Order #${o.id}</strong> — ${fmt(o.total)} (${o.status})
+    $("#adminOrdersQueue").innerHTML = orders.length ? orders.map(o => `
+      <div style="background:var(--bg);padding:16px;border-radius:12px;border:1px solid var(--ln);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div><strong>Order #${o.id}</strong> — ${fmt(o.total)}<br><small class="mu">Status: <strong>${o.status}</strong></small></div>
+        <div style="display:flex;gap:8px">
+          ${o.receipt ? `<button class="btn" onclick="Cinex.viewReceipt('${o.receipt}')" style="padding:8px 12px">View Receipt</button>` : ''}
+          ${o.status === 'Awaiting Admin Confirmation' ? `<button class="btn pri" onclick="Cinex.confirmOrder(${o.id})" style="padding:8px 12px">Confirm Payment</button>` : ''}
+        </div>
       </div>
-    `).join("");
+    `).join("") : '<p class="mu">No orders in escrow queue.</p>';
     this.open("adminVerifyM");
   }
 };
@@ -752,7 +664,6 @@ const Cinex = {
 window.addEventListener("hashchange", () => render(cur()));
 CinexAuth.init();
 loadCloudData();
-icons(document);
 count();
 </script>
 </body>
