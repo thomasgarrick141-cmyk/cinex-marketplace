@@ -82,6 +82,10 @@ main{flex:1;padding:20px 0 48px}
 
 .promise-tag{display:inline-flex;padding:6px 14px;background:rgba(2,132,199,0.08);color:var(--ac);border:1px solid rgba(2,132,199,0.2);border-radius:20px;font-size:var(--fs-sm);font-weight:600;margin-bottom:14px}
 .escrow-banner{background:rgba(16,185,129,0.1);border:1px solid var(--grn);color:var(--grn);padding:14px 16px;border-radius:10px;margin-bottom:24px;font-size:var(--fs-sm);font-weight:600;line-height:1.5}
+.sync-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--grn);background:rgba(16,185,129,0.1);padding:4px 10px;border-radius:20px}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--grn);display:inline-block}
+#liveToast{position:fixed;bottom:20px;right:20px;background:#0F172A;color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 10px 25px rgba(0,0,0,0.25);z-index:90;display:none;align-items:center;gap:10px}
+#liveToast.show{display:flex}
 
 .facts{background:var(--sf);border:1px solid var(--ln);border-radius:14px;overflow:hidden;width:100%}
 .facts>div{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-top:1px solid var(--ln);gap:14px;flex-wrap:wrap}
@@ -142,6 +146,8 @@ input,select,textarea{width:100%;font:15px Figtree,sans-serif;padding:11px 12px;
 </style>
 </head>
 <body>
+
+<div id="liveToast">🆕 New listing added to Marketplace!</div>
 
 <div id="authGate">
   <div class="auth-box">
@@ -254,8 +260,13 @@ input,select,textarea{width:100%;font:15px Figtree,sans-serif;padding:11px 12px;
     <div><label>Mobile Money Number (Payout)</label><input type="text" id="pW" placeholder="23276000000" required></div>
     <div><label>Product Photo</label><input type="file" id="pI" accept="image/*" onchange="Cinex.handleListingPhoto(event)"></div>
     <div><label>Description</label><textarea id="pD" rows="3" placeholder="Describe item..."></textarea></div>
-    <button class="btn pri full" type="submit" style="margin-top:6px">Publish Listing</button>
+    <button class="btn pri full" id="publishBtn" type="submit" style="margin-top:6px">Publish Listing</button>
   </form>
+</div></div>
+
+<div class="ov" id="detailM"><div class="dlg" style="max-width:540px">
+  <div class="dh"><h2 id="detTitle">Listing Details</h2><button class="x" onclick="Cinex.close()">✕</button></div>
+  <div id="detBody"></div>
 </div></div>
 
 <div class="ov" id="adminVerifyM"><div class="dlg" style="max-width:640px">
@@ -296,7 +307,15 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 };
 
-function compressImageFile(file, maxWidth = 800, quality = 0.78) {
+function showToast(msg) {
+  const t = $("#liveToast");
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 4000);
+}
+
+function compressImageFile(file, maxWidth = 650, quality = 0.72) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onerror = reject;
@@ -309,7 +328,7 @@ function compressImageFile(file, maxWidth = 800, quality = 0.78) {
         if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
         canvas.width = w; canvas.height = h;
         canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL("image/webp", quality));
+        resolve(canvas.toDataURL("image/jpeg", quality));
       };
       img.src = ev.target.result;
     };
@@ -351,6 +370,9 @@ const CinexAuth = {
     const pass = $("#regPass").value;
     const user = { name, email, pass };
     if (supabaseClient) await supabaseClient.from('profiles').insert([user]);
+    const localUsers = JSON.parse(store.get("cinex_users")) || [];
+    localUsers.push(user);
+    store.set("cinex_users", JSON.stringify(localUsers));
     this.setUser(user);
   },
   async handleLogin(e) {
@@ -359,7 +381,7 @@ const CinexAuth = {
     const pass = $("#logPass").value;
     let found = null;
     if (supabaseClient) {
-      const { data } = await supabaseClient.from('profiles').select('*').eq('email', email).eq('pass', pass).single();
+      const { data } = await supabaseClient.from('profiles').select('*').eq('email', email).eq('pass', pass).maybeSingle();
       found = data;
     }
     if (!found) {
@@ -405,25 +427,103 @@ const DEFAULTS = [
   { id: 4, title: "Professional iPhone FRP Unlock & Firmware Service", price: 150, condition: "Digital Service", category: "Local Services", location: "Freetown", image: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=600&q=75", description: "Fast professional unlocking and device flashing.", seller: "Thomas Garrick", verified: true, sold: false, phone: "23231921336" }
 ];
 
-let products = DEFAULTS;
+let products = [...DEFAULTS];
 let orders = [];
+let knownProductIds = new Set(DEFAULTS.map(p => p.id));
+let cloudStatusText = "Connecting to Live Cloud...";
+let cloudPollTimer = null;
 
-async function loadCloudData() {
-  if (supabaseClient) {
-    const { data: pData } = await supabaseClient.from('products').select('*');
-    if (pData && pData.length) products = pData;
-    const { data: oData } = await supabaseClient.from('orders').select('*');
-    if (oData) orders = oData;
+function isSandboxedPreview() {
+  return window.location.protocol === "blob:" || window.location.hostname.includes("scf.usercontent.goog");
+}
+
+function getLocalProducts() {
+  try { return JSON.parse(store.get("cinex_local_products")) || []; } catch (e) { return []; }
+}
+
+function saveLocalProducts(list) {
+  store.set("cinex_local_products", JSON.stringify(list));
+}
+
+async function loadCloudData(silent = false) {
+  if (!supabaseClient) return;
+  try {
+    const { data: pData, error: pErr } = await supabaseClient
+      .from('products')
+      .select('*')
+      .order('id', { ascending: false });
+
+    if (pErr) {
+      const msg = String(pErr.message || "");
+      if (msg.includes("Failed to fetch")) {
+        cloudStatusText = isSandboxedPreview() ? "Preview Mode (Live Cloud active on Vercel)" : "Offline / Local Mode";
+      } else {
+        console.warn("Supabase products read notice:", pErr.message);
+        cloudStatusText = "Cloud Read Blocked (Check Supabase RLS)";
+      }
+      const localSaved = getLocalProducts();
+      products = [...localSaved, ...DEFAULTS.filter(d => !localSaved.some(l => Number(l.id) === d.id))];
+      if (cur() === "marketplace") listings();
+    } else if (pData) {
+      cloudStatusText = "Live Cloud Synced (" + pData.length + " cloud items)";
+      const cloudIds = new Set(pData.map(item => Number(item.id)));
+      const merged = [
+        ...pData.map(item => ({ ...item, id: Number(item.id) })),
+        ...DEFAULTS.filter(d => !cloudIds.has(d.id))
+      ];
+
+      if (silent) {
+        const brandNew = pData.find(item => !knownProductIds.has(Number(item.id)));
+        if (brandNew) {
+          showToast("🆕 New Listing: " + brandNew.title);
+        }
+      }
+      pData.forEach(item => knownProductIds.add(Number(item.id)));
+
+      const prevJson = JSON.stringify(products.map(x => x.id + ":" + x.sold));
+      const nextJson = JSON.stringify(merged.map(x => x.id + ":" + x.sold));
+      products = merged;
+
+      if (cur() === "marketplace" && prevJson !== nextJson) {
+        listings();
+      }
+    }
+
+    const { data: oData } = await supabaseClient
+      .from('orders')
+      .select('*')
+      .order('id', { ascending: false });
+    if (oData) {
+      orders = oData;
+      updatePendingBadge();
+    }
+
+    const statusEl = $("#cloudSyncBadge");
+    if (statusEl) statusEl.textContent = cloudStatusText;
+  } catch (err) {
+    cloudStatusText = isSandboxedPreview() ? "Preview Mode (Live Cloud active on Vercel)" : "Offline / Local Mode";
+    const statusEl = $("#cloudSyncBadge");
+    if (statusEl) statusEl.textContent = cloudStatusText;
   }
-  render(cur());
-  updatePendingBadge();
 }
 
 function initRealtimeSync() {
   if (!supabaseClient) return;
-  setInterval(() => {
-    loadCloudData();
-  }, 10000);
+  if (cloudPollTimer) clearInterval(cloudPollTimer);
+  cloudPollTimer = setInterval(() => {
+    loadCloudData(true);
+  }, 4000);
+
+  if (!isSandboxedPreview()) {
+    try {
+      supabaseClient
+        .channel('public:products')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
+          loadCloudData(true);
+        })
+        .subscribe();
+    } catch (e) {}
+  }
 }
 
 let cart = [], filter = "All", searchQuery = "";
@@ -459,8 +559,9 @@ const card = p => `
     </div>
     <div class="cb">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap"><span class="cat-tag">${esc(p.category)}</span><span style="font-size:12px;color:var(--mu)">📍 ${esc(p.location || 'Freetown')}</span></div>
-      <h3 onclick="Cinex.openDetail(${p.id})">${esc(p.title)}</h3>
+      <h3 style="cursor:pointer" onclick="Cinex.openDetail(${p.id})">${esc(p.title)}</h3>
       <p style="font-size:var(--fs-sm);color:var(--mu);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0">${esc(p.description)}</p>
+      <div style="font-size:12px;color:var(--mu)">Seller: <strong>${esc(p.seller || 'Verified Merchant')}</strong></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px;border-top:1px solid var(--ln);gap:8px;flex-wrap:wrap">
         <span class="price">${fmt(p.price)}</span>
         <div style="display:flex;gap:6px">
@@ -495,7 +596,11 @@ const V = {
     <div class="escrow-banner">🛡️ CINEX Central Escrow Guarantee: Funds are released to sellers only after delivery confirmation.</div>
     <section style="padding:12px 0">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
-        <h2>Marketplace Listings</h2>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <h2 style="margin:0">Marketplace Listings</h2>
+          <span class="sync-pill"><span class="sync-dot"></span><span id="cloudSyncBadge">${esc(cloudStatusText)}</span></span>
+          <button class="btn" onclick="loadCloudData(false)" style="padding:5px 10px;font-size:12px">↻ Refresh</button>
+        </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap" id="chips"></div>
       </div>
       <div class="filter-bar"><input type="text" placeholder="Search products or services..." oninput="Cinex.onSearch(this.value)"></div>
@@ -611,8 +716,35 @@ const Cinex = {
   go(v) { location.hash = "#" + v; render(v); },
   filter(c) { filter = c; listings(); },
   onSearch(q) { searchQuery = q.toLowerCase().trim(); listings(); },
-  open(id) { document.getElementById(id)?.classList.add("on"); if (id === 'cartM') cartR(); },
+  open(id) {
+    document.getElementById(id)?.classList.add("on");
+    if (id === 'cartM') cartR();
+    if (id === 'vendorM') {
+      $("#vendorListingsCount").textContent = products.length;
+      $("#vendorOrdersCount").textContent = orders.length;
+    }
+  },
   close() { document.querySelectorAll(".ov").forEach(o => o.classList.remove("on")); },
+  openDetail(id) {
+    const p = products.find(x => Number(x.id) === Number(id));
+    if (!p) return;
+    $("#detTitle").textContent = p.title;
+    $("#detBody").innerHTML = `
+      ${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" style="width:100%;max-height:280px;object-fit:cover;border-radius:10px;margin-bottom:14px">` : ''}
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="cat-tag">${esc(p.category)}</span>
+        <span class="price">${fmt(p.price)}</span>
+      </div>
+      <p style="font-size:14px;color:var(--mu);margin-bottom:10px"><strong>Condition:</strong> ${esc(p.condition)} • <strong>Location:</strong> ${esc(p.location || 'Freetown')}</p>
+      <p style="font-size:14px;color:var(--mu);margin-bottom:14px"><strong>Seller:</strong> ${esc(p.seller || 'Verified Merchant')}</p>
+      <p style="line-height:1.6;margin-bottom:16px">${esc(p.description)}</p>
+      <div style="display:flex;gap:8px">
+        <button class="btn pri full" onclick="Cinex.add(${p.id},this);Cinex.close()">Add to Cart</button>
+        ${p.phone ? `<a href="https://wa.me/${p.phone}?text=${encodeURIComponent('Hi, I am interested in your listing on CINEX.CO: ' + p.title)}" target="_blank" class="btn btn-wa full">Chat on WhatsApp</a>` : ''}
+      </div>
+    `;
+    this.open("detailM");
+  },
   toggleCurrency() {
     currencyMode = currencyMode === "NLe" ? "USD" : "NLe";
     store.set("cinex_currency", currencyMode);
@@ -620,10 +752,10 @@ const Cinex = {
     render(cur());
   },
   add(id, btn) {
-    const p = products.find(x => x.id === id);
+    const p = products.find(x => Number(x.id) === Number(id));
     if (!p || p.sold) return;
     cart.push(p); count();
-    btn.textContent = "Added ✓"; setTimeout(() => btn.textContent = "Add to Cart", 1200);
+    if (btn) { btn.textContent = "Added ✓"; setTimeout(() => btn.textContent = "Add to Cart", 1200); }
   },
   remove(i) { cart.splice(i, 1); count(); cartR(); },
   updateMerchantNumber() {
@@ -640,6 +772,9 @@ const Cinex = {
   },
   async submitListing(e) {
     e.preventDefault();
+    const btn = $("#publishBtn");
+    if (btn) { btn.disabled = true; btn.textContent = "Publishing to Cloud..."; }
+
     const newProd = {
       id: Date.now(),
       title: $("#pT").value.trim(),
@@ -648,15 +783,37 @@ const Cinex = {
       category: $("#pC").value,
       location: $("#pL").value.trim() || "Freetown",
       phone: $("#pW").value.trim(),
-      image: currentListingImage,
+      image: currentListingImage || "",
       description: $("#pD").value.trim(),
       seller: CinexAuth.currentUser?.name || "Merchant",
       verified: true,
       sold: false
     };
-    if (supabaseClient) await supabaseClient.from('products').insert([newProd]);
+
+    if (supabaseClient) {
+      const { error } = await supabaseClient.from('products').insert([newProd]);
+      if (error) {
+        const errMsg = String(error.message || "");
+        if (errMsg.includes("Failed to fetch")) {
+          const localSaved = getLocalProducts();
+          localSaved.unshift(newProd);
+          saveLocalProducts(localSaved);
+        } else {
+          alert("Supabase Cloud Error: " + error.message + "\n\nFix: Go to Supabase -> SQL Editor and run:\nalter table products disable row level security;");
+          if (btn) { btn.disabled = false; btn.textContent = "Publish Listing"; }
+          return;
+        }
+      }
+    }
+
+    knownProductIds.add(newProd.id);
     products.unshift(newProd);
-    e.target.reset(); this.close(); this.go("marketplace");
+    currentListingImage = "";
+    if (btn) { btn.disabled = false; btn.textContent = "Publish Listing"; }
+    e.target.reset();
+    this.close();
+    this.go("marketplace");
+    showToast("✅ Published live to all users!");
   },
   async submitOrderForConfirmation() {
     if (!cart.length) return;
@@ -672,7 +829,13 @@ const Cinex = {
       receipt: currentReceiptImage,
       buyer: CinexAuth.currentUser?.name || "Customer"
     };
-    if (supabaseClient) await supabaseClient.from('orders').insert([newOrder]);
+    if (supabaseClient) {
+      const { error } = await supabaseClient.from('orders').insert([newOrder]);
+      if (error) {
+        alert("Order sync error: " + error.message);
+        return;
+      }
+    }
     orders.unshift(newOrder);
     cart = []; count(); this.close(); alert("Order submitted to escrow!"); this.go("orders");
   },
@@ -691,7 +854,7 @@ const Cinex = {
     }
   },
   async confirmOrder(id) {
-    const ord = orders.find(o => o.id === id);
+    const ord = orders.find(o => Number(o.id) === Number(id));
     if (ord) {
       ord.status = "Payment Confirmed & Escrow Secured";
       if (supabaseClient) await supabaseClient.from('orders').update({ status: ord.status }).eq('id', id);
@@ -715,7 +878,8 @@ const Cinex = {
 
 window.addEventListener("hashchange", () => render(cur()));
 CinexAuth.init();
-loadCloudData();
+render(cur());
+loadCloudData(false);
 initRealtimeSync();
 count();
 </script>
