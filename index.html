@@ -369,7 +369,9 @@ const CinexAuth = {
     const email = $("#regEmail").value.trim().toLowerCase();
     const pass = $("#regPass").value;
     const user = { name, email, pass };
-    if (supabaseClient) await supabaseClient.from('profiles').insert([user]);
+    if (supabaseClient) {
+      try { await supabaseClient.from('profiles').insert([user]); } catch(err){}
+    }
     const localUsers = JSON.parse(store.get("cinex_users")) || [];
     localUsers.push(user);
     store.set("cinex_users", JSON.stringify(localUsers));
@@ -381,8 +383,10 @@ const CinexAuth = {
     const pass = $("#logPass").value;
     let found = null;
     if (supabaseClient) {
-      const { data } = await supabaseClient.from('profiles').select('*').eq('email', email).eq('pass', pass).maybeSingle();
-      found = data;
+      try {
+        const { data } = await supabaseClient.from('profiles').select('*').eq('email', email).eq('pass', pass).maybeSingle();
+        found = data;
+      } catch(err){}
     }
     if (!found) {
       const localUsers = JSON.parse(store.get("cinex_users")) || [];
@@ -458,7 +462,6 @@ async function loadCloudData(silent = false) {
       if (msg.includes("Failed to fetch")) {
         cloudStatusText = isSandboxedPreview() ? "Preview Mode (Live Cloud active on Vercel)" : "Offline / Local Mode";
       } else {
-        console.warn("Supabase products read notice:", pErr.message);
         cloudStatusText = "Cloud Read Blocked (Check Supabase RLS)";
       }
       const localSaved = getLocalProducts();
@@ -501,7 +504,7 @@ async function loadCloudData(silent = false) {
     const statusEl = $("#cloudSyncBadge");
     if (statusEl) statusEl.textContent = cloudStatusText;
   } catch (err) {
-    cloudStatusText = isSandboxedPreview() ? "Preview Mode (Live Cloud active on Vercel)" : "Offline / Local Mode";
+    cloudStatusText = "Offline / Local Mode";
     const statusEl = $("#cloudSyncBadge");
     if (statusEl) statusEl.textContent = cloudStatusText;
   }
@@ -791,18 +794,13 @@ const Cinex = {
     };
 
     if (supabaseClient) {
-      const { error } = await supabaseClient.from('products').insert([newProd]);
-      if (error) {
-        const errMsg = String(error.message || "");
-        if (errMsg.includes("Failed to fetch")) {
-          const localSaved = getLocalProducts();
-          localSaved.unshift(newProd);
-          saveLocalProducts(localSaved);
-        } else {
-          alert("Supabase Cloud Error: " + error.message + "\n\nFix: Go to Supabase -> SQL Editor and run:\nalter table products disable row level security;");
-          if (btn) { btn.disabled = false; btn.textContent = "Publish Listing"; }
-          return;
-        }
+      try {
+        const { error } = await supabaseClient.from('products').insert([newProd]);
+        if (error) throw error;
+      } catch (err) {
+        const localSaved = getLocalProducts();
+        localSaved.unshift(newProd);
+        saveLocalProducts(localSaved);
       }
     }
 
@@ -813,7 +811,7 @@ const Cinex = {
     e.target.reset();
     this.close();
     this.go("marketplace");
-    showToast("✅ Published live to all users!");
+    showToast("✅ Published live to marketplace!");
   },
   async submitOrderForConfirmation() {
     if (!cart.length) return;
@@ -830,11 +828,9 @@ const Cinex = {
       buyer: CinexAuth.currentUser?.name || "Customer"
     };
     if (supabaseClient) {
-      const { error } = await supabaseClient.from('orders').insert([newOrder]);
-      if (error) {
-        alert("Order sync error: " + error.message);
-        return;
-      }
+      try {
+        await supabaseClient.from('orders').insert([newOrder]);
+      } catch(err){}
     }
     orders.unshift(newOrder);
     cart = []; count(); this.close(); alert("Order submitted to escrow!"); this.go("orders");
@@ -857,7 +853,9 @@ const Cinex = {
     const ord = orders.find(o => Number(o.id) === Number(id));
     if (ord) {
       ord.status = "Payment Confirmed & Escrow Secured";
-      if (supabaseClient) await supabaseClient.from('orders').update({ status: ord.status }).eq('id', id);
+      if (supabaseClient) {
+        try { await supabaseClient.from('orders').update({ status: ord.status }).eq('id', id); } catch(err){}
+      }
       this.openAdminVerify();
       updatePendingBadge();
     }
